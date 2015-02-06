@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 
 public class Deque<Item> implements Iterable<Item> {
 
-    private class Node<Item> {
+    private class Node {
         private Item item;
         private Node next;
         private Node prev;
@@ -25,12 +25,12 @@ public class Deque<Item> implements Iterable<Item> {
         }
     }
 
-    private class DequeIterator<Item> implements Iterator<Item> {
+    private class DequeIterator implements Iterator<Item> {
 
-        private Node<Item> currentNode;
+        private Node currentNode;
 
-        DequeIterator(Deque<Item> deque) {
-            currentNode = deque.head.next;
+        DequeIterator() {
+            currentNode = head.next;
         }
 
         @Override
@@ -99,11 +99,13 @@ public class Deque<Item> implements Iterable<Item> {
         if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
-            Node<Item> oldNode = head.next;
-            head.next.next.prev = head;
-            head.next = oldNode.next;
+            Node foo = head.next;
+            head.next = head.next.next;
+            head.next.prev = head;
             size--;
-            return oldNode.item;
+            foo.next = null;
+            foo.prev = null;
+            return foo.item;
         }
     }
 
@@ -111,16 +113,18 @@ public class Deque<Item> implements Iterable<Item> {
         if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
-            Node<Item> oldTail = tail.prev;
-            tail.prev.prev.next = tail;
-            tail.prev = oldTail.prev;
+            Node foo = tail.prev;
+            tail.prev = tail.prev.prev;
+            tail.prev.next = tail;
             size--;
-            return oldTail.item;
+            foo.next = null;
+            foo.prev = null;
+            return foo.item;
         }
     }
 
     public Iterator<Item> iterator() { // return an iterator over items in order from front to end
-        return new DequeIterator(this);
+        return new DequeIterator();
     }
 
     public static void main(String[] args) {

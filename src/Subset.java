@@ -11,11 +11,8 @@ public class Subset {
             queue.enqueue(StdIn.readString());
         }
 
-        for (String bar : queue) {
-            if (k > 0) {
-                StdOut.println(bar);
-                k--;
-            }
+        for (int i = 0; i < k; i++) {
+            StdOut.println(queue.dequeue());
         }
 
     }

@@ -7,10 +7,6 @@ import java.util.NoSuchElementException;
  */
 public class RandomizedQueue<Item> implements Iterable<Item> {
 
-    private Item[] items;
-    private int totalSize;
-    private int itemCount;
-
     private class RandomIterator implements Iterator<Item> {
         private int currentAtIndex;
         private int[] indice;
@@ -45,6 +41,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             throw new UnsupportedOperationException();
         }
     }
+
+    private Item[] items;
+    private int totalSize;
+    private int itemCount;
 
     public RandomizedQueue() {
         itemCount = 0;
@@ -89,11 +89,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             Item foo = items[indexToRemove];
             items[indexToRemove] = items[itemCount - 1];
             items[itemCount - 1] = null;
-
+            itemCount--;
             if (itemCount == totalSize / 4) {
                 resize(totalSize / 2);
             }
-
             return foo;
         }
     }                   // delete and return a random item
@@ -111,16 +110,5 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     public static void main(String[] args) {
-        RandomizedQueue<Integer> queue = new RandomizedQueue<Integer>();
-        for (int i = 0; i < 10; i++) {
-            queue.enqueue(i);
-        }
-
-        for (Integer i : queue) {
-            for (Integer j : queue) {
-                System.out.println(i + " " + j);
-            }
-        }
-
     }
 }

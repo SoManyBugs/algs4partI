@@ -7,11 +7,15 @@ public class Subset {
         int k = Integer.parseInt(args[0]);
         RandomizedQueue<String> queue = new RandomizedQueue<String>();
 
-        while (StdIn.isEmpty()) {
+        while (!StdIn.isEmpty()) {
             queue.enqueue(StdIn.readString());
         }
 
-        for (int i = 0; i < k; i++) {
+        while (queue.size() > k) {
+            queue.dequeue();
+        }
+
+        while (!queue.isEmpty()) {
             StdOut.println(queue.dequeue());
         }
 

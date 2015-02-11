@@ -4,7 +4,7 @@
  */
 public class Brute {
     public static void main(String[] args) {
-        args = new String[] {"grid6x6.txt"};
+        args = new String[] {"grid4x4.txt"};
         Point[] points;
         int quantity;
 
@@ -43,7 +43,7 @@ public class Brute {
                             if (points[a].slopeTo(points[b]) == points[b].slopeTo(points[c]) &&
                                     points[b].slopeTo(points[c]) == points[c].slopeTo(points[d])) {
                                 points[a].drawTo(points[d]);
-                                StdDraw.show(0);
+                                StdOut.println("" + points[a] + " -> " + points[b] + " -> " + points[c] + " -> " + points[d]);
                             }
                         }
                     }
@@ -52,7 +52,7 @@ public class Brute {
         }
 
         // display to screen all at once
-//        StdDraw.show(0);
+        StdDraw.show(0);
 
         // reset the pen radius
         StdDraw.setPenRadius();

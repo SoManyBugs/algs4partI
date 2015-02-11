@@ -1,41 +1,88 @@
+/*************************************************************************
+ * Name:
+ * Email:
+ *
+ * Compilation:  javac Point.java
+ * Execution:
+ * Dependencies: StdDraw.java
+ *
+ * Description: An immutable data type for points in the plane.
+ *
+ *************************************************************************/
+
 import java.util.Comparator;
 
-/**
- * This file is created by @Muffin_C on 2/10/15 20:53.
- * This file is part of Project algs4partI.
- */
 public class Point implements Comparable<Point> {
-    public final Comparator<Point> SLOPE_ORDER = new SlopeOrder();        // compare points by slope to this point
 
-    public static class SlopeOrder implements Comparator<Point> {
+    // compare points by slope
+    public final Comparator<Point> SLOPE_ORDER = new SlopeOrder();       // YOUR DEFINITION HERE
+
+    private final class SlopeOrder implements Comparator<Point> {
         @Override
         public int compare(Point point, Point t1) {
             return 0;
         }
     }
 
+    private int x;                              // x coordinate
+    private int y;                              // y coordinate
+
+    // create the point (x, y)
     public Point(int x, int y) {
+        /* DO NOT MODIFY */
+        this.x = x;
+        this.y = y;
+    }
 
-    }                        // construct the point (x, y)
+    // plot this point to standard drawing
+    public void draw() {
+        /* DO NOT MODIFY */
+        StdDraw.point(x, y);
+    }
 
-    public   void draw() {
+    // draw line between this point and that point to standard drawing
+    public void drawTo(Point that) {
+        /* DO NOT MODIFY */
+        StdDraw.line(this.x, this.y, that.x, that.y);
+    }
 
-    }                               // draw this point
-
-    public   void drawTo(Point that) {
-
-    }                  // draw the line segment from this point to that point
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }                          // string representation
-
-    public int compareTo(Point that) {
-        return 0;
-    }               // is this point lexicographically smaller than that point?
-
+    // slope between this point and that point
     public double slopeTo(Point that) {
-        return 1;
-    }                 // the slope between this point and that point
+        /* YOUR CODE HERE */
+        if (x == that.x && y == that.y) {
+            return Double.NEGATIVE_INFINITY;
+        } else if (x == that.x) {
+            return Double.POSITIVE_INFINITY;
+        } else if (y == that.y) {
+            return 0;
+        } else {
+            return ((double) (that.y - y)) / (that.x - x);
+        }
+    }
+
+    // is this point lexicographically smaller than that one?
+    // comparing y-coordinates and breaking ties by x-coordinates
+    @SuppressWarnings("unchecked")
+    public int compareTo(Point that) {
+        /* YOUR CODE HERE */
+        if (y != that.y) {
+            return ((Comparable) y).compareTo(that.y);
+        } else {
+            return ((Comparable) x).compareTo(that.x);
+        }
+    }
+
+    // return string representation of this point
+    public String toString() {
+        /* DO NOT MODIFY */
+        return "(" + x + ", " + y + ")";
+    }
+
+    // unit test
+    public static void main(String[] args) {
+        /* YOUR CODE HERE */
+        Point big = new Point(2,3);
+        Point small = new Point(2,2);
+        System.out.println(big.compareTo(small));
+    }
 }

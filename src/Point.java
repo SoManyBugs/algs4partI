@@ -10,6 +10,7 @@
  *
  *************************************************************************/
 
+import java.util.Arrays;
 import java.util.Comparator;
 
 public class Point implements Comparable<Point> {
@@ -19,8 +20,9 @@ public class Point implements Comparable<Point> {
 
     private final class SlopeOrder implements Comparator<Point> {
         @Override
+        @SuppressWarnings("unchecked")
         public int compare(Point point, Point t1) {
-            return 0;
+            return ((Comparable) slopeTo(point)).compareTo(slopeTo(t1));
         }
     }
 
@@ -81,8 +83,32 @@ public class Point implements Comparable<Point> {
     // unit test
     public static void main(String[] args) {
         /* YOUR CODE HERE */
-        Point big = new Point(2,3);
+        Point a = new Point(0,0);
+        Point big = new Point(1,1);
         Point small = new Point(2,2);
         System.out.println(big.compareTo(small));
+
+        int result = a.SLOPE_ORDER.compare(a, a);
+        System.out.println(result);
+
+        Point[] p = new Point[20];
+        Point[] q = new Point[20];
+        for (int i = 0; i < 10; i++) {
+            p[i] = new Point(StdRandom.uniform(20), StdRandom.uniform(20));
+            q[i] = new Point(p[i].x, p[i].y);
+            p[i+10] = p[i];
+            q[i+10] = q[i];
+        }
+
+        Arrays.sort(q, p[0].SLOPE_ORDER);
+        System.out.println(Arrays.toString(q));
+
+        Arrays.sort(q, p[2].SLOPE_ORDER);
+        System.out.println(Arrays.toString(q));
+
+
+        System.out.println(a.slopeTo(big) == big.slopeTo(small));
+
+
     }
 }

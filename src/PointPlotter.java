@@ -12,6 +12,7 @@
 
 public class PointPlotter {
     public static void main(String[] args) {
+        args = new String[] {"input50.txt"};
 
         // rescale coordinates and turn on animation mode
         StdDraw.setXscale(0, 32768);

@@ -93,21 +93,29 @@ public class Point implements Comparable<Point> {
 
         Point[] p = new Point[20];
         Point[] q = new Point[20];
-        for (int i = 0; i < 10; i++) {
-            p[i] = new Point(StdRandom.uniform(20), StdRandom.uniform(20));
+        for (int i = 0; i < 20; i++) {
+            p[i] = new Point(0, StdRandom.uniform(1000));
             q[i] = new Point(p[i].x, p[i].y);
-            p[i+10] = p[i];
-            q[i+10] = q[i];
+//            p[i+10] = p[i];
+//            q[i+10] = q[i];
         }
 
+        Arrays.sort(q);
         Arrays.sort(q, p[0].SLOPE_ORDER);
         System.out.println(Arrays.toString(q));
+//        System.out.println(Arrays.toString(p));
 
+        Arrays.sort(q);
         Arrays.sort(q, p[2].SLOPE_ORDER);
         System.out.println(Arrays.toString(q));
+//        System.out.println(Arrays.toString(p));
 
 
         System.out.println(a.slopeTo(big) == big.slopeTo(small));
+
+        System.out.println(p[5].slopeTo(q[10]) == q[10].slopeTo(p[5]));
+
+        System.out.println(p[5].slopeTo(p[1]));
 
 
     }

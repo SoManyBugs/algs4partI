@@ -4,7 +4,7 @@
  */
 public class Brute {
     public static void main(String[] args) {
-        args = new String[] {"grid4x4.txt"};
+        args = new String[] {"input6.txt"};
         Point[] points;
         int quantity;
 

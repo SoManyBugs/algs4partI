@@ -4,14 +4,13 @@
  */
 public class Brute {
     public static void main(String[] args) {
-        args = new String[] {"input6.txt"};
         Point[] points;
         int quantity;
 
         // rescale coordinates and turn on animation mode
-        StdDraw.setXscale(-3000, 32768);
-        StdDraw.setYscale(-3000, 32768);
-        StdDraw.setPenRadius(0.001);  // make the points a bit larger
+        StdDraw.setXscale(0, 32768);
+        StdDraw.setYscale(0, 32768);
+        StdDraw.setPenRadius(0.001);
         StdDraw.setPenColor(StdDraw.BLUE);
 
         // read in the input
@@ -31,19 +30,17 @@ public class Brute {
                     for (int d = 0; d < quantity; d++) {
                         boolean sameDirection;
 
-                        if (points[a].compareTo(points[b]) > 0 &&
-                                points[b].compareTo(points[c]) > 0 &&
-                                points[c].compareTo(points[d]) > 0) {
-                            sameDirection = true;
-                        } else {
-                            sameDirection = false;
-                        }
+                        sameDirection = points[a].compareTo(points[b]) > 0
+                                && points[b].compareTo(points[c]) > 0
+                                && points[c].compareTo(points[d]) > 0;
 
                         if (sameDirection) {
-                            if (points[a].slopeTo(points[b]) == points[b].slopeTo(points[c]) &&
-                                    points[b].slopeTo(points[c]) == points[c].slopeTo(points[d])) {
+                            if (points[a].slopeTo(points[b]) == points[b].slopeTo(points[c])
+                                    && points[b].slopeTo(points[c]) == points[c].slopeTo(points[d])) {
                                 points[a].drawTo(points[d]);
-                                StdOut.println("" + points[a] + " -> " + points[b] + " -> " + points[c] + " -> " + points[d]);
+                                StdOut.println("" + points[a] + " -> "
+                                        + points[b] + " -> " + points[c]
+                                        + " -> " + points[d]);
                             }
                         }
                     }

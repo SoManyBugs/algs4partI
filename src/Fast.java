@@ -50,8 +50,6 @@ public class Fast {
                     if (j == quantity - 1 && sameLinePoints >= 3
                             && pointsCopy[j - sameLinePoints + 1].compareTo(origin) > 0) {
                         pointsCopy[0].drawTo(pointsCopy[j]);
-                        System.out.println("drew" + pointsCopy[0] + "to" + pointsCopy[j - 1]);
-
                         StdOut.print(pointsCopy[0]);
                         for (int shift = 1; shift <= sameLinePoints; shift++) {
                             StdOut.print(" -> " + pointsCopy[j - sameLinePoints + shift]);
@@ -61,12 +59,10 @@ public class Fast {
 
                 } else {
                     if (sameLinePoints >= 3
-                            && pointsCopy[j - sameLinePoints + 1].compareTo(origin) > 0) {
+                            && pointsCopy[j - sameLinePoints].compareTo(origin) > 0) {
                         pointsCopy[0].drawTo(pointsCopy[j - 1]);
-                        System.out.println("drew" + pointsCopy[0] + "to" + pointsCopy[j - 1]);
-
                         StdOut.print(pointsCopy[0]);
-                        for (int shift = 1; shift <= sameLinePoints; shift++) {
+                        for (int shift = 0; shift < sameLinePoints; shift++) {
                             StdOut.print(" -> " + pointsCopy[j - sameLinePoints + shift]);
                         }
                         StdOut.println();

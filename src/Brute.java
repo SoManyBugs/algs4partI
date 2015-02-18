@@ -35,8 +35,8 @@ public class Brute {
                                 && points[c].compareTo(points[d]) > 0;
 
                         if (sameDirection) {
-                            if (points[a].slopeTo(points[b]) == points[b].slopeTo(points[c])
-                                    && points[b].slopeTo(points[c]) == points[c].slopeTo(points[d])) {
+                            if (points[a].SLOPE_ORDER.compare(points[b], points[c]) == 0
+                                    && points[c].SLOPE_ORDER.compare(points[b], points[d]) == 0) {
                                 points[a].drawTo(points[d]);
                                 StdOut.println("" + points[a] + " -> "
                                         + points[b] + " -> " + points[c]

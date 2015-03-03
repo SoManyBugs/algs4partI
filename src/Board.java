@@ -56,11 +56,11 @@ public class Board {
     public boolean isGoal() {
         for (int i = 0; i < N; i++) {
             for (int j = 0 ; j < N; j++) {
-                if (blocks[i][j] != i * N + j + 1) {
-                    if (i != N - 1 && j != N - 1) {
+                if (i == N - 1 && j == N - 1) {
+                    return blocks[i][j] == 0;
+                } else {
+                    if (blocks[i][j] != i * N + j + 1) {
                         return false;
-                    } else {
-                        return blocks[i][j] == 0;
                     }
                 }
             }
@@ -189,14 +189,13 @@ public class Board {
 
 
         System.out.println(initial2.equals(initial));
-        System.out.println(initial2.isGoal());
         System.out.println(initial2.hamming());
         System.out.println(initial2.manhattan());
         System.out.println(initial.twin());
+        System.out.println(initial2.isGoal());
 
-
-        for(Board b : initial2.neighbors()) {
-            System.out.println(b);
-        }
+//        for(Board b : initial2.neighbors()) {
+//            System.out.println(b);
+//        }
     }// unit tests (not graded)
 }

@@ -16,25 +16,24 @@ public class Board {
             }
         }
         N = blocks.length;
-    }          // construct a board from an N-by-N array of blocks
-    // (where blocks[i][j] = block in row i, column j)
+    }
 
     public int dimension() {
         return N;
-    }                // board N N
+    }
 
     public int hamming() {
         int foo = 0;
 
         for (int i = 0; i < N; i++) {
-            for(int j = 0; j < N; j++) {
+            for (int j = 0; j < N; j++) {
                 if (blocks[i][j] != 0 && blocks[i][j] != i * N + j + 1) {
                     foo++;
                 }
             }
         }
         return foo;
-    }                  // number of blocks out of place
+    }
 
     public int manhattan() {
         int foo = 0;
@@ -51,7 +50,7 @@ public class Board {
             }
         }
         return foo;
-    }                // sum of Manhattan distances between blocks and goal
+    }
 
     public boolean isGoal() {
         for (int i = 0; i < N; i++) {
@@ -66,7 +65,7 @@ public class Board {
             }
         }
         return true;
-    }               // is this board the goal board?
+    }
 
     public Board twin() {
         Board twinBoard = new Board(blocks);
@@ -87,13 +86,13 @@ public class Board {
         twinBoard.exch(x ,y ,x, exchange);
 
         return twinBoard;
-    }                   // a board that is obtained by exchanging two adjacent blocks in the same row
+    }
 
     public boolean equals(Object y) {
         return y instanceof Board
                && ((Board) y).dimension() == N
                && toString().equals(y.toString());
-    }       // does this board equal y?
+    }
 
     public Iterable<Board> neighbors() {
         LinkedQueue<Board> queue = new LinkedQueue<Board>();
@@ -157,7 +156,7 @@ public class Board {
     }
 
     public String toString() {
-        String foo = "";
+        String foo = N + "\n";
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 foo += " " + blocks[i][j] + " ";
@@ -165,37 +164,8 @@ public class Board {
             foo += "\n";
         }
         return foo;
-    }              // string representation of this board (in the output format specified below)
+    }
 
     public static void main(String[] args) {
-
-        args = new String[]{"puzzle00.txt","test.txt"};
-
-        In in = new In(args[0]);
-        int N = in.readInt();
-        int[][] blocks = new int[N][N];
-        for (int i = 0; i < N; i++)
-            for (int j = 0; j < N; j++)
-                blocks[i][j] = in.readInt();
-        Board initial = new Board(blocks);
-
-        In in2 = new In(args[1]);
-        int N2 = in2.readInt();
-        int[][] blocks2 = new int[N2][N2];
-        for (int i = 0; i < N2; i++)
-            for (int j = 0; j < N2; j++)
-                blocks2[i][j] = in2.readInt();
-        Board initial2 = new Board(blocks2);
-
-
-        System.out.println(initial2.equals(initial));
-        System.out.println(initial2.hamming());
-        System.out.println(initial2.manhattan());
-        System.out.println(initial.twin());
-        System.out.println(initial2.isGoal());
-
-//        for(Board b : initial2.neighbors()) {
-//            System.out.println(b);
-//        }
-    }// unit tests (not graded)
+    }
 }

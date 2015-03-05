@@ -18,7 +18,7 @@ public class KdTreeGenerator {
 
     public static void main(String[] args) {
 //        int N = Integer.parseInt(args[0]);
-        int N = 4;
+        int N = 10;
 
         KdTree kdTree = new KdTree();
 

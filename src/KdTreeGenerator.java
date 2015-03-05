@@ -17,11 +17,23 @@
 public class KdTreeGenerator {
 
     public static void main(String[] args) {
-        int N = Integer.parseInt(args[0]);
+//        int N = Integer.parseInt(args[0]);
+        int N = 4;
+
+        KdTree kdTree = new KdTree();
+
         for (int i = 0; i < N; i++) {
             double x = Math.random();
             double y = Math.random();
-            System.out.printf("%8.6f %8.6f\n", x, y);
+//            System.out.printf("%8.6f %8.6f\n", x, y);
+
+            kdTree.insert(new Point2D(x, y));
         }
+
+        StdDraw.show(0);
+        kdTree.draw();
+        StdDraw.show(50);
+
+
     }
 }

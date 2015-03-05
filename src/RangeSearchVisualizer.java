@@ -89,11 +89,11 @@ public class RangeSearchVisualizer {
             for (Point2D p : brute.range(rect))
                 p.draw();
 
-            // draw the range search results for kd-tree in blue
-            StdDraw.setPenRadius(.02);
-            StdDraw.setPenColor(StdDraw.BLUE);
-            for (Point2D p : kdtree.range(rect))
-                p.draw();
+//            // draw the range search results for kd-tree in blue
+//            StdDraw.setPenRadius(.02);
+//            StdDraw.setPenColor(StdDraw.BLUE);
+//            for (Point2D p : kdtree.range(rect))
+//                p.draw();
 
             StdDraw.show(40);
         }

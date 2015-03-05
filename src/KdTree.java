@@ -10,27 +10,34 @@ public class KdTree{
         private Node leftDown;
         private Node rightUp;
         private Node parent;
+        private RectHV line;
         private RectHV rect;
 
 
-        public Node(Point2D p, boolean direction) {
+        public Node(Point2D p, boolean direction, Node parent) {
             this.p = p;
             this.direction = direction;
+            this.parent = parent;
 
             if (parent == null) {
-                rect = new RectHV(p.x(), 0, p.x(), 1);
+                line = new RectHV(p.x(), 0, p.x(), 1);
+                rect = new RectHV(0, 0, 1, 1);
             } else {
                 if (direction) {
                     if (parent.p.y() > p.y()) {
-                        rect = new RectHV(p.x(), 0, p.x(), parent.p.y());
+                        rect = new RectHV(parent.rect.xmin(), parent.rect.ymin(), parent.rect.xmax(), parent.p.y());
+                        line = new RectHV(p.x(), parent.rect.ymin(), p.x(), parent.p.y());
                     } else {
-                        rect = new RectHV(p.x(), parent.p.y(), root.p.x(), 1);
+                        rect = new RectHV(parent.rect.xmin(), parent.p.y(), parent.rect.xmax(), parent.rect.ymax());
+                        line = new RectHV(p.x(), parent.p.y(), p.x(), parent.rect.ymax());
                     }
                 } else {
-                    if (root.parent.p.x() > root.p.x()) {
-                        rect = new RectHV(0, root.p.y(), root.parent.p.x(), root.p.y());
+                    if (parent.p.x() > p.x()) {
+                        rect = new RectHV(parent.rect.xmin(), parent.rect.ymin(), parent.p.x(), parent.rect.ymax());
+                        line = new RectHV(parent.rect.xmin(), p.y(), parent.p.x(), p.y());
                     } else {
-                        rect = new RectHV(root.parent.p.x(), root.p.y(), 1, root.p.y());
+                        rect = new RectHV(parent.p.x(), parent.rect.ymin(), parent.rect.xmax(), parent.rect.ymax());
+                        line = new RectHV(parent.p.x(), p.y(), parent.rect.xmax(), p.y());
                     }
                 }
             }
@@ -64,7 +71,7 @@ public class KdTree{
         checkNull(p);
 
         if (isEmpty()) {
-            head = new Node(p, true);
+            head = new Node(p, true, null);
             size++;
         } else {
             if (!contains(p)) {
@@ -78,8 +85,7 @@ public class KdTree{
     private Node insert(Point2D p, Node root, Node parent) {
 
         if (root == null) {
-            root = new Node(p, !parent.direction);
-            root.parent = parent;
+            root = new Node(p, !parent.direction, parent);
         } else {
             if (root.direction) {
                 if (p.x() < root.p.x()) {
@@ -151,28 +157,16 @@ public class KdTree{
         root.p.draw();
 
         StdDraw.setPenRadius();
-        RectHV rect;
         if (root.parent == null) {
             StdDraw.setPenColor(StdDraw.RED);
-            rect = new RectHV(root.p.x(), 0, root.p.x(), 1);
         } else {
             if (root.direction) {
                 StdDraw.setPenColor(StdDraw.RED);
-                if (root.parent.p.y() > root.p.y()) {
-                    rect = new RectHV(root.p.x(), 0, root.p.x(), root.parent.p.y());
-                } else {
-                    rect = new RectHV(root.p.x(), root.parent.p.y(), root.p.x(), 1);
-                }
             } else {
                 StdDraw.setPenColor(StdDraw.BLUE);
-                if (root.parent.p.x() > root.p.x()) {
-                    rect = new RectHV(0, root.p.y(), root.parent.p.x(), root.p.y());
-                } else {
-                    rect = new RectHV(root.parent.p.x(), root.p.y(), 1, root.p.y());
-                }
             }
         }
-        rect.draw();
+        root.line.draw();
 
 
         if (root.rightUp != null) {
@@ -224,25 +218,23 @@ public class KdTree{
 //        }
 //
 //        kdtree.draw();
-
+//
         KdTree kdtree = new KdTree();
         kdtree.insert(new Point2D(0.5, 0.5));
-        kdtree.insert(new Point2D(0.1, 0.1));
         kdtree.insert(new Point2D(0.9, 0.23));
-        kdtree.insert(new Point2D(0.5, 0.23));
-        kdtree.insert(new Point2D(0.3, 0.23));
-        kdtree.insert(new Point2D(0.1, 0.23));
-        kdtree.insert(new Point2D(0.23, 0.23));
-        kdtree.insert(new Point2D(0.66, 0.23));
-        kdtree.insert(new Point2D(0.123, 0.23));
-        kdtree.insert(new Point2D(0.6, 0.9));
+        kdtree.insert(new Point2D(0.3, 0.4));
+        kdtree.insert(new Point2D(0.1, 0.7));
+        kdtree.insert(new Point2D(0.23, 0.9));
+        kdtree.insert(new Point2D(0.66, 0.563));
+//        kdtree.insert(new Point2D(0.123, 0.23));
+//        kdtree.insert(new Point2D(0.6, 0.9));
 
         System.out.println(kdtree.contains(new Point2D(0.6,0.9)));
 
-//        StdDraw.show(0);
-//
-//        kdtree.draw();
-//        StdDraw.show(50);
+        StdDraw.show(0);
+
+        kdtree.draw();
+        StdDraw.show(50);
 
     }
 

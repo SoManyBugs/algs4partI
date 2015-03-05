@@ -18,7 +18,7 @@ public class RangeSearchVisualizer {
     public static void main(String[] args) {
 
 //        String filename = args[0];
-        String filename = "input10K.txt";
+        String filename = "circle100.txt";
 
         In in = new In(filename);
 
@@ -83,17 +83,17 @@ public class RangeSearchVisualizer {
             StdDraw.setPenRadius();
             rect.draw();
 
-            // draw the range search results for brute-force data structure in red
-            StdDraw.setPenRadius(.03);
-            StdDraw.setPenColor(StdDraw.RED);
-            for (Point2D p : brute.range(rect))
-                p.draw();
-
-//            // draw the range search results for kd-tree in blue
-//            StdDraw.setPenRadius(.02);
-//            StdDraw.setPenColor(StdDraw.BLUE);
-//            for (Point2D p : kdtree.range(rect))
+//            // draw the range search results for brute-force data structure in red
+//            StdDraw.setPenRadius(.03);
+//            StdDraw.setPenColor(StdDraw.RED);
+//            for (Point2D p : brute.range(rect))
 //                p.draw();
+
+            // draw the range search results for kd-tree in blue
+            StdDraw.setPenRadius(.02);
+            StdDraw.setPenColor(StdDraw.BLUE);
+            for (Point2D p : kdtree.range(rect))
+                p.draw();
 
             StdDraw.show(40);
         }

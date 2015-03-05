@@ -14,7 +14,7 @@
 public class NearestNeighborVisualizer {
 
     public static void main(String[] args) {
-        String filename = args[0];
+        String filename = "circle1000.txt";
         In in = new In(filename);
 
         StdDraw.show(0);
@@ -47,11 +47,13 @@ public class NearestNeighborVisualizer {
             StdDraw.setPenRadius(.03);
             StdDraw.setPenColor(StdDraw.RED);
             brute.nearest(query).draw();
+            System.out.println(brute.nearest(query));
             StdDraw.setPenRadius(.02);
 
-            // draw in blue the nearest neighbor (using kd-tree algorithm)
+//            draw in blue the nearest neighbor (using kd-tree algorithm)
             StdDraw.setPenColor(StdDraw.BLUE);
             kdtree.nearest(query).draw();
+            System.out.println(kdtree.nearest(query));
             StdDraw.show(0);
             StdDraw.show(40);
         }

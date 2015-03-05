@@ -180,23 +180,46 @@ public class KdTree{
 
         LinkedQueue<Point2D> queue = new LinkedQueue<Point2D>();
 
-        if (!isEmpty()) {
-            range(rect, head, queue);
-        }
+        range(rect, head, queue);
 
         return queue;
     }            // all points that are inside the rectangle
 
-    private void range(RectHV rect, Node root, LinkedQueue queue) {
-
-
-
+    private void range(RectHV rect, Node root, LinkedQueue<Point2D> queue) {
+        if (root != null) {
+            if (rect.contains(root.p)) {
+                queue.enqueue(root.p);
+            }
+            if (rect.intersects(root.rect)) {
+                range(rect, root.leftDown, queue);
+                range(rect, root.rightUp, queue);
+            }
+        }
     }
 
     public Point2D nearest(Point2D p) {
         checkNull(p);
-        return new Point2D(0,0);
+        return nearest(p, null, Double.MAX_VALUE, head);
     }            // a nearest neighbor in the set to point p; null if the set is empty
+
+    private Point2D nearest(Point2D p, Point2D champion, double nearestDistance, Node root) {
+        if (root != null) {
+            double distance = root.p.distanceTo(p);
+
+            if (nearestDistance > distance) {
+                champion = root.p;
+                nearestDistance = distance;
+            }
+
+            if (nearestDistance > root.rect.distanceTo(p)) {
+                Point2D championLD = nearest(p, champion, nearestDistance, root.leftDown);
+                Point2D championRU = nearest(p, champion, nearestDistance, root.rightUp);
+
+                champion = championLD.distanceTo(p) > championRU.distanceTo(p) ? championRU : championLD;
+            }
+        }
+        return champion;
+    }
 
     public static void main(String[] args) {
         String filename = "circle10.txt";
@@ -206,24 +229,29 @@ public class KdTree{
         StdDraw.show(0);
 
         // initialize the data structures with N points from standard input
-//        PointSET brute = new PointSET();
+        PointSET brute = new PointSET();
         KdTree kdtree = new KdTree();
         while (!in.isEmpty()) {
             double x = in.readDouble();
             double y = in.readDouble();
             Point2D p = new Point2D(x, y);
             kdtree.insert(p);
-//            System.out.println("here");
-//            brute.insert(p);
+            brute.insert(p);
         }
+        StdDraw.setPenRadius(.01);
 
-        kdtree.draw();
+        brute.draw();
+        StdDraw.setPenRadius(.03);
+        Point2D foo = new Point2D(0.05, 0.75);
+        foo.draw();
+        kdtree.nearest(new Point2D(0.05, 0.75)).draw();
+        System.out.println(brute.nearest(new Point2D(0.05, 0.75)));
 //
 //        KdTree kdtree = new KdTree();
 //        kdtree.insert(new Point2D(0.5, 0.5));
 //        kdtree.insert(new Point2D(0.9, 0.23));
 //        kdtree.insert(new Point2D(0.3, 0.4));
-//        kdtree.insert(new Point2D(0.1, 0.7));
+//        kdtree.insert(new Point2D2(0.1, 0.7));
 //        kdtree.insert(new Point2D(0.23, 0.9));
 //        kdtree.insert(new Point2D(0.66, 0.563));
 ////        kdtree.insert(new Point2D(0.123, 0.23));
@@ -232,8 +260,6 @@ public class KdTree{
 //        System.out.println(kdtree.contains(new Point2D(0.6,0.9)));
 
         StdDraw.show(0);
-
-        kdtree.draw();
         StdDraw.show(50);
 
     }

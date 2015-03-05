@@ -9,29 +9,29 @@ public class PointSET {
 
     public PointSET() {
         tree = new TreeSet<Point2D>();
-    }                              // construct an empty set of points
+    }
 
     public boolean isEmpty() {
         return tree.isEmpty();
-    }                     // is the set empty?
+    }
 
     public int size() {
         return tree.size();
-    }                        // number of points in the set
+    }
 
     public void insert(Point2D p) {
         tree.add(p);
-    }              // add the point to the set (if it is not already in the set)
+    }
 
     public boolean contains(Point2D p) {
         return tree.contains(p);
-    }          // does the set contain point p?
+    }
 
     public void draw() {
         for (Point2D p : tree) {
             p.draw();
         }
-    }                       // draw all points to standard draw
+    }
 
     public Iterable<Point2D> range(RectHV rect) {
         LinkedQueue<Point2D> queue = new LinkedQueue<Point2D>();
@@ -41,7 +41,7 @@ public class PointSET {
             }
         }
         return queue;
-    }            // all points that are inside the rectangle
+    }
 
     public Point2D nearest(Point2D p) {
         Point2D nearestPoint = null;
@@ -55,12 +55,7 @@ public class PointSET {
         }
 
         return nearestPoint;
-    }            // a nearest neighbor in the set to point p; null if the set is empty
-
-    public static void main(String[] args) {
-
-        PointSET foo = new PointSET();
-
-        System.out.println(foo.nearest(new Point2D(0,0)));
     }
+
+    public static void main(String[] args) {}
 }

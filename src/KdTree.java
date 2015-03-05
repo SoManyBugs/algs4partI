@@ -10,14 +10,31 @@ public class KdTree{
         private Node leftDown;
         private Node rightUp;
         private Node parent;
+        private RectHV rect;
 
-        public Node(Point2D p) {
-            this.p = p;
-        }
 
         public Node(Point2D p, boolean direction) {
             this.p = p;
             this.direction = direction;
+
+            if (parent == null) {
+                rect = new RectHV(p.x(), 0, p.x(), 1);
+            } else {
+                if (direction) {
+                    if (parent.p.y() > p.y()) {
+                        rect = new RectHV(p.x(), 0, p.x(), parent.p.y());
+                    } else {
+                        rect = new RectHV(p.x(), parent.p.y(), root.p.x(), 1);
+                    }
+                } else {
+                    if (root.parent.p.x() > root.p.x()) {
+                        rect = new RectHV(0, root.p.y(), root.parent.p.x(), root.p.y());
+                    } else {
+                        rect = new RectHV(root.parent.p.x(), root.p.y(), 1, root.p.y());
+                    }
+                }
+            }
+
         }
     }
 
@@ -47,8 +64,7 @@ public class KdTree{
         checkNull(p);
 
         if (isEmpty()) {
-            head = new Node(p);
-            head.direction = true;
+            head = new Node(p, true);
             size++;
         } else {
             if (!contains(p)) {

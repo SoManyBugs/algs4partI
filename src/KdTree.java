@@ -199,37 +199,37 @@ public class KdTree{
     }            // a nearest neighbor in the set to point p; null if the set is empty
 
     public static void main(String[] args) {
-//        String filename = "circle10.txt";
-//
-//        In in = new In(filename);
-//
-//        StdDraw.show(0);
-//
-//        // initialize the data structures with N points from standard input
-////        PointSET brute = new PointSET();
-//        KdTree kdtree = new KdTree();
-//        while (!in.isEmpty()) {
-//            double x = in.readDouble();
-//            double y = in.readDouble();
-//            Point2D p = new Point2D(x, y);
-//            kdtree.insert(p);
-////            System.out.println("here");
-////            brute.insert(p);
-//        }
-//
-//        kdtree.draw();
-//
-        KdTree kdtree = new KdTree();
-        kdtree.insert(new Point2D(0.5, 0.5));
-        kdtree.insert(new Point2D(0.9, 0.23));
-        kdtree.insert(new Point2D(0.3, 0.4));
-        kdtree.insert(new Point2D(0.1, 0.7));
-        kdtree.insert(new Point2D(0.23, 0.9));
-        kdtree.insert(new Point2D(0.66, 0.563));
-//        kdtree.insert(new Point2D(0.123, 0.23));
-//        kdtree.insert(new Point2D(0.6, 0.9));
+        String filename = "circle10.txt";
 
-        System.out.println(kdtree.contains(new Point2D(0.6,0.9)));
+        In in = new In(filename);
+
+        StdDraw.show(0);
+
+        // initialize the data structures with N points from standard input
+//        PointSET brute = new PointSET();
+        KdTree kdtree = new KdTree();
+        while (!in.isEmpty()) {
+            double x = in.readDouble();
+            double y = in.readDouble();
+            Point2D p = new Point2D(x, y);
+            kdtree.insert(p);
+//            System.out.println("here");
+//            brute.insert(p);
+        }
+
+        kdtree.draw();
+//
+//        KdTree kdtree = new KdTree();
+//        kdtree.insert(new Point2D(0.5, 0.5));
+//        kdtree.insert(new Point2D(0.9, 0.23));
+//        kdtree.insert(new Point2D(0.3, 0.4));
+//        kdtree.insert(new Point2D(0.1, 0.7));
+//        kdtree.insert(new Point2D(0.23, 0.9));
+//        kdtree.insert(new Point2D(0.66, 0.563));
+////        kdtree.insert(new Point2D(0.123, 0.23));
+////        kdtree.insert(new Point2D(0.6, 0.9));
+//
+//        System.out.println(kdtree.contains(new Point2D(0.6,0.9)));
 
         StdDraw.show(0);
 
